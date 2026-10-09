@@ -41,8 +41,6 @@
 }
 .chip.wet { background: var(--wet); color: #fff; }
 .chip.dry { background: var(--dry); color: #3b3121; }
-:root[data-theme="dark"] .chip.dry { color: #f1e6d0; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip.dry { color: #f1e6d0; } }
 .chip.idle { border: 1px solid var(--line-strong); color: var(--ink-3); font-weight: 500; }
 .chip .p { font-weight: 400; opacity: 0.85; }
 

@@ -27,7 +27,7 @@ export function ModelTable({ rows, showProject = true }: { rows: ModelRow[]; sho
         </thead>
         <tbody>
           {rows.map((m) => (
-            <tr key={m.id} className="clickable" onClick={() => nav(`/models/${m.id}`)}>
+            <tr key={m.id} className="clickable" tabIndex={0} onClick={() => nav(`/models/${m.id}`)} onKeyDown={(e) => e.key === "Enter" && nav(`/models/${m.id}`)}>
               {showProject && <td style={{ whiteSpace: "nowrap" }}>{m.project}</td>}
               <td><span className="mono">{m.version}</span></td>
               <td><StageBadge stage={m.stage} /></td>

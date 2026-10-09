@@ -126,6 +126,7 @@ export default function Layout() {
 
   return (
     <div className="shell">
+      <a className="skip-link" href="#main">Skip to content</a>
       <aside className={`sidebar ${menu ? "open" : ""}`}>
         <NavLink to="/" className="brand">
           <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
@@ -156,7 +157,7 @@ export default function Layout() {
           <button className="btn menu-btn" onClick={() => setMenu((m) => !m)} aria-label="Menu">☰</button>
           <Search />
         </header>
-        <main className="content">
+        <main className="content" id="main" tabIndex={-1}>
           <Outlet />
         </main>
       </div>

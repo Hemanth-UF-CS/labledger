@@ -56,7 +56,7 @@ export default function Overview() {
                     <thead><tr><th>Project</th><th>Version</th><th className="num">Test metric</th><th>Owner</th><th>Registered</th></tr></thead>
                     <tbody>
                       {rows.map((m) => (
-                        <tr key={m.id} className="clickable" onClick={() => nav(`/models/${m.id}`)}>
+                        <tr key={m.id} className="clickable" tabIndex={0} onClick={() => nav(`/models/${m.id}`)} onKeyDown={(e) => e.key === "Enter" && nav(`/models/${m.id}`)}>
                           <td>{m.project_name}</td>
                           <td><span className="mono">{m.version}</span></td>
                           <td className="num">

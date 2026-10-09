@@ -4,13 +4,13 @@
   --surface: #fcfcfb;
   --surface-2: #f0efec;
   --ink: #141413;
-  --ink-2: #52514e;
-  --ink-3: #898781;
+  --ink-2: #4a4945;
+  --ink-3: #66655f;
   --line: #e4e3dd;
   --line-strong: #c9c8c0;
   --grid: #ebeae4;
   --accent: #2a78d6;
-  --accent-ink: #1c5cab;
+  --accent-ink: #1a56a0;
   --accent-wash: #e8f1fc;
   --good: #0ca30c;
   --good-ink: #006300;
@@ -18,7 +18,7 @@
   --warn-ink: #8a5a00;
   --bad: #d03b3b;
   --bad-ink: #a32222;
-  --wet: #2a78d6;
+  --wet: #1f6bc4;
   --dry: #d8c39d;
   --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
   --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
@@ -29,32 +29,6 @@
   --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --page: #0f0f0e;
-    --surface: #1a1a19;
-    --surface-2: #232321;
-    --ink: #f3f2ee;
-    --ink-2: #c3c2b7;
-    --ink-3: #8d8b84;
-    --line: #2c2c2a;
-    --line-strong: #43433f;
-    --grid: #262624;
-    --accent: #3987e5;
-    --accent-ink: #86b6ef;
-    --accent-wash: #16263b;
-    --good-ink: #2fc42f;
-    --warn-ink: #fab219;
-    --bad-ink: #ef6b6b;
-    --wet: #3987e5;
-    --dry: #6e5f45;
-    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
-    --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
-    --seq-0: #1d2633; --seq-1: #0d366b; --seq-2: #104281; --seq-3: #184f95; --seq-4: #256abf; --seq-5: #3987e5; --seq-6: #6da7ec; --seq-7: #b7d3f6;
-    --shadow: none;
-  }
-}
 :root[data-theme="dark"] {
   color-scheme: dark;
   --page: #0f0f0e;
@@ -173,4 +147,12 @@ select:focus, input:focus, button:focus-visible { outline: 2px solid var(--accen
 .env-tag {
   font-size: 11px; color: var(--ink-3); border: 1px dashed var(--line-strong);
   padding: 1px 7px; border-radius: 4px; white-space: nowrap;
+}
+
+.skip-link { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--surface); padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: 5px; }
+.skip-link:focus { left: 8px; }
+tr.clickable:focus-visible td { background: var(--accent-wash); }
+tr.clickable:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }

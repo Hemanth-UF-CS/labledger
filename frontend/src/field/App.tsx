@@ -383,6 +383,7 @@ export default function App() {
 
   return (
     <>
+      <a className="skip-link" href="#main">Skip to content</a>
       <header className="fs-top">
         <div className="fs-brand">
           <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
@@ -399,7 +400,7 @@ export default function App() {
         <span className="env-tag">Demo environment · sample data</span>
       </header>
 
-      <main className="fs-main">
+      <main className="fs-main" id="main" tabIndex={-1}>
         {!ov.data && (
           <div className="card card-body" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <span className="skeleton" style={{ width: 12, height: 12, borderRadius: 6 }} />

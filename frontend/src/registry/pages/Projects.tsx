@@ -21,7 +21,7 @@ export function Projects() {
                 <thead><tr><th>Project</th><th>Task</th><th>Owner</th><th className="num">Versions</th><th>In production</th><th>Metric</th><th>Last version</th></tr></thead>
                 <tbody>
                   {rows.map((p) => (
-                    <tr key={p.slug} className="clickable" onClick={() => nav(`/projects/${p.slug}`)}>
+                    <tr key={p.slug} className="clickable" tabIndex={0} onClick={() => nav(`/projects/${p.slug}`)} onKeyDown={(e) => e.key === "Enter" && nav(`/projects/${p.slug}`)}>
                       <td><div>{p.name}</div><div className="mono small muted">{p.slug}</div></td>
                       <td className="secondary" style={{ maxWidth: 280 }}>{p.task}</td>
                       <td><Who handle={p.owner} name={p.owner_name} /></td>
