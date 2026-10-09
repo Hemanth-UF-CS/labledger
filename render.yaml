@@ -42,7 +42,7 @@ services:
       - key: NODE_VERSION
         value: 20.17.0
       - key: VITE_API_URL
-        value: https://labledger-api.onrender.com
+        value: https://labledger-api-h8zu.onrender.com
 
   - type: web
     name: fieldsense
@@ -58,9 +58,9 @@ services:
       - key: NODE_VERSION
         value: 20.17.0
       - key: VITE_API_URL
-        value: https://labledger-api.onrender.com
+        value: https://labledger-api-h8zu.onrender.com
       - key: VITE_REGISTRY_URL
-        value: https://labledger.onrender.com
+        value: https://labledger-az0y.onrender.com
 
 databases:
   - name: labledger-db
