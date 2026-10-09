@@ -64,7 +64,7 @@ export default function Overview() {
                             {fmtMetric(m.primary_metric, m.metric_value)}
                           </td>
                           <td><Who handle={m.author} name={m.author_name} /></td>
-                          <td className="muted">{fmtDate(m.created_at)}</td>
+                          <td className="muted" style={{ whiteSpace: "nowrap" }}>{fmtDate(m.created_at)}</td>
                         </tr>
                       ))}
                     </tbody>
