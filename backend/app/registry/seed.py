@@ -47,13 +47,13 @@ PROJECTS = [
     {
         "slug": "wetdry", "name": "Soil surface wet/dry classification", "owner": "hreddy",
         "task": "Binary classification from Pi camera frames plus a sensor sequence",
-        "description": "Classifies the soil surface under each field node as wet (1) or dry (0) from the "
-                       "latest camera frame and the preceding sensor window. Runs on the Raspberry Pi nodes "
+        "description": "Classifies surface wetness at each field node as wet (1) or dry (0) from the "
+                       "latest frame of its white reference plate and the preceding sensor window. Runs on the Raspberry Pi nodes "
                        "as an int8 TFLite model; output feeds the FieldSense dashboard and irrigation alerts.",
         "metric": "f1", "higher": True, "framework": "PyTorch 2.3 / TFLite",
         "dataset": ("wetdry-frames", "Wet/dry labeled field frames",
-                    "Top-down Pi Camera Module 3 frames from field nodes, each aligned with the 2 h of "
-                    "sensor readings before capture. Labels from manual annotation plus rain-gauge cross-check.",
+                    "Top-down Pi Camera Module 3 frames of each node's white reference plate (beaded droplets = wet), "
+                    "each aligned with the 2 h of sensor readings before capture. Labels from manual annotation plus rain-gauge cross-check.",
                     "image + time series",
                     [(3120, "2025-03-04", "Initial set. Nodes N01-N04, Feb-Mar 2025."),
                      (7840, "2025-06-17", "Added early-summer rain events; 212 ambiguous dusk frames relabeled."),
@@ -67,7 +67,7 @@ PROJECTS = [
         "models": [
             ("0.1.0", "2025-03-21", 0, "ResNet-18 (frames only)",
              {"backbone": "resnet18", "seq_len": 0, "seq_features": [], "lstm_hidden": 0, "lstm_layers": 0, "export": "onnx"},
-             0.842, "archived", None, "Frame-only baseline. Misses wet soil at dusk and under shade."),
+             0.842, "archived", None, "Frame-only baseline. Misses thin films and fine dew at dusk."),
             ("0.2.0", "2025-04-09", 0, "MobileNetV3-S + LSTM", {}, 0.881, "archived", "0.1.0",
              "First CNN-LSTM. 2 h sensor window (5-min steps) fused after the image embedding."),
             ("0.3.0", "2025-06-25", 1, "MobileNetV3-S + LSTM", {"pos_weight": 1.6}, 0.903, "archived", "0.2.0",
@@ -83,7 +83,7 @@ PROJECTS = [
              0.928, "archived", "1.2.0", "Larger LSTM. Regressed on N04 low-light frames; not promoted."),
             ("1.4.0", "2026-03-30", 2, "MobileNetV3-S + LSTM",
              {"pos_weight": 1.6, "seq_len": 36, "augment": ["hflip", "color_jitter", "random_shadow"]},
-             0.941, "archived", "1.2.0", "Synthetic shadow augmentation fixes most stake-shadow false wets."),
+             0.941, "archived", "1.2.0", "Synthetic shadow augmentation fixes most false wets from shadows across the plate."),
             ("1.5.0", "2026-06-29", 3, "MobileNetV3-S + LSTM",
              {"pos_weight": 1.4, "seq_len": 36, "augment": ["hflip", "color_jitter", "random_shadow"]},
              0.948, "archived", "1.4.0", "Retrained on frames v4. Production 2026-07-06 to 2026-09-22."),

@@ -46,7 +46,7 @@ function WetDry({ p, label }: { p: number; label: 0 | 1 }) {
   );
 }
 
-const capUrl = (id: number) => `${API_URL}/api/field/captures/${id}.jpg`;
+const capUrl = (id: number) => `${API_URL}/api/field/captures/${id}.jpg?v=plate`;
 
 function useNow(ms = 1000) {
   const [now, setNow] = useState(Date.now());
@@ -86,12 +86,12 @@ function CapturePanel({ node, captures, daylight }: { node: FieldNode; captures:
   return (
     <div className="card">
       <div className="card-head">
-        <h2>Camera · {node.id}</h2>
+        <h2>Reference plate · {node.id}</h2>
         <span className="small muted">every 5 min in daylight</span>
       </div>
       <div className="card-body">
         <div className="capture">
-          {shown && <img src={capUrl(shown.id)} alt={`${node.id} soil surface at ${fmtDateTime(shown.ts)}`} />}
+          {shown && <img src={capUrl(shown.id)} alt={`${node.id} reference plate at ${fmtDateTime(shown.ts)}, classified ${shown.label ? "wet" : "dry"}`} />}
           {shown && <div className="overlay"><WetDry p={shown.p_wet} label={shown.label} /></div>}
         </div>
         {!daylight && pickedId === null && (
@@ -259,7 +259,7 @@ function ModelPanel({ info }: { info: ModelInfo | undefined }) {
           </div>
           <div className="small secondary" style={{ flex: 1, minWidth: 180 }}>
             {fmtInt(live.labeled)} of {fmtInt(live.frames)} frames from the last 14 days have an annotator label. Most errors are
-            false wets: dark, shaded soil shortly after sunrise, and surfaces that have dried while the sensor at 10 cm still reads moist.
+            false wets: shadows across the plate shortly after sunrise, and dried mineral rings left by earlier droplets.
           </div>
         </div>
       </div>
@@ -470,7 +470,7 @@ export default function App() {
         {nodes.length > 0 && <HealthTable nodes={nodes} now={now} />}
 
         <footer className="small muted" style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-          <span>Nodes: Raspberry Pi 4B, Camera Module 3, capacitive VWC, DS18B20, SHT31, pH and EC probes, BH1750, tipping-bucket gauge.</span>
+          <span>Nodes: Raspberry Pi 4B, Camera Module 3 over a white reference plate, capacitive VWC, DS18B20, SHT31, pH and EC probes, BH1750, tipping-bucket gauge.</span>
           <span>Readings every 30 s · classifications every 5 min · <a href={`${API_URL}/docs#/field`} target="_blank" rel="noreferrer">API</a></span>
         </footer>
       </main>

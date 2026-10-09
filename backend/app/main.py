@@ -29,7 +29,7 @@ async def lifespan(app: FastAPI):
     async with pool.acquire() as conn:
         seeded = await seed(conn)
     cache.init(settings.redis_url)
-    if seeded:
+    if seeded or applied:
         await cache.get_cache().invalidate()
     tasks = []
     if settings.simulator_enabled:

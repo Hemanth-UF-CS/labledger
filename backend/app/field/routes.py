@@ -175,14 +175,14 @@ async def capture(pred_id: int):
     data = _image_cache.get(pred_id)
     if data is None:
         r = await get_pool().fetchrow(
-            """SELECT p.*, n.crop, n.irrigation,
+            """SELECT p.*,
                       (SELECT light FROM readings r WHERE r.node_id = p.node_id AND r.ts <= p.ts ORDER BY r.ts DESC LIMIT 1) AS light
-               FROM predictions p JOIN field_nodes n ON n.id = p.node_id WHERE p.id = $1""", pred_id)
+               FROM predictions p WHERE p.id = $1""", pred_id)
         if not r:
             raise HTTPException(404, "capture not found")
         data = await asyncio.to_thread(
-            images.render, r["image_seed"], r["soil_moisture"], r["label"], r["node_id"], r["crop"],
-            r["irrigation"].startswith("drip"), r["ts"].astimezone(LOCAL), r["light"] or 20_000)
+            images.render, r["image_seed"], r["p_wet"], r["label"], r["node_id"],
+            r["ts"].astimezone(LOCAL), r["light"] or 20_000)
         _image_cache[pred_id] = data
         if len(_image_cache) > 400:
             _image_cache.popitem(last=False)
